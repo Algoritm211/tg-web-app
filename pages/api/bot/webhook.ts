@@ -48,7 +48,7 @@ bot.hears('hi', (ctx) => ctx.reply('Hey there'))
 
 const setWebhook = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { query } = req
+    const { body, query } = req
 
     if (query.setWebhook === 'true') {
       const webhookUrl = `${BASE_PATH}/api/bot/webhook`
@@ -56,6 +56,8 @@ const setWebhook = async (req: NextApiRequest, res: NextApiResponse) => {
       const isSet = await bot.telegram.setWebhook(webhookUrl)
       console.log(`Set webhook to ${webhookUrl}: ${isSet}`)
     }
+
+    console.log(body, query)
 
     res.status(200).send('OK')
   } catch (error) {
