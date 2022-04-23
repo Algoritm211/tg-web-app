@@ -57,7 +57,7 @@ const setWebhook = async (req: NextApiRequest, res: NextApiResponse) => {
       console.log(`Set webhook to ${webhookUrl}: ${isSet}`)
     }
 
-    console.log(body, query)
+    await bot.handleUpdate(body)
 
     res.status(200).send('OK')
   } catch (error) {
