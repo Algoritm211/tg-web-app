@@ -22,12 +22,6 @@ const Home: React.FC = () => {
     void loadItems()
   }, [])
 
-  const AddProduct = (product: ProductItem) => {
-    const newCart = [...cart, product]
-    setCart(newCart)
-    setCurrentProduct(null)
-  }
-
   const RemoveProduct = (product: ProductItem) => {
     const newCart = cart.filter(el => el.id !== product.id)
     setCart(newCart)

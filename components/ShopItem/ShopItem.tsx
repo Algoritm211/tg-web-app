@@ -37,16 +37,18 @@ export const ShopItem: React.FC<Props> = ({cart, RemoveProduct, showModal, produ
         <div className='d-flex justify-content-center'>
           {isItemAdded ?
             <BuyButton
-              icon='fa-check'
+              iconClass='fa-check'
               type='primary'
+              key='fa-check'
               ghost
               onClick={() => {
                 RemoveProduct(product)
               }}
             >Added</BuyButton> :
             <BuyButton
-              icon='fa-cart-plus'
+              iconClass='fa-cart-plus'
               type='primary'
+              key='fa-cart-plus'
               onClick={() => {
                 showModal(product)
               }}

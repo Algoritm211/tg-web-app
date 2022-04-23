@@ -21,7 +21,7 @@ export const AddToCartModal: React.FC<Props> = ({
   setCurrentProduct,
   closeModal
 }) => {
-  const [size, setSize] = useState('')
+  const [size, setSize] = useState(null)
   const themeParams = window.Telegram.WebApp.themeParams
 
 
@@ -34,6 +34,7 @@ export const AddToCartModal: React.FC<Props> = ({
   const AddProduct = (product: ProductItem) => {
     const newCart = [...cart, product]
     setCart(newCart)
+    setSize(null)
     setCurrentProduct(null)
   }
 
