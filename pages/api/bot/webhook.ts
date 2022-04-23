@@ -4,8 +4,8 @@ import {NewInvoiceParameters} from "telegraf/typings/telegram-types";
 
 const BASE_PATH =
   process.env.VERCEL_ENV === 'production'
-    ? 'https://tg-web-app-iota.vercel.app/api/bot/webhook'
-    : 'http://localhost:3000/api/bot/webhook'
+    ? 'https://tg-web-app-iota.vercel.app'
+    : 'http://localhost:3000'
 
 const getInvoice = (id: number): NewInvoiceParameters => {
 
