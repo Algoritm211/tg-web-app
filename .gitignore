@@ -27,6 +27,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+http-client.private.env.json
 
 # vercel
 .vercel
