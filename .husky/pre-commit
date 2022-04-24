@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx tsc --noEmit && npx eslint --fix . && npx prettier --write .
+
+npx lint-staged

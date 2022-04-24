@@ -1,5 +1,5 @@
-import {Telegraf} from 'telegraf'
+import { Telegraf } from 'telegraf';
 
-console.log(process.env.BOT_TOKEN)
+console.log(process.env.BOT_TOKEN);
 
-export const bot = new Telegraf(process.env.BOT_TOKEN!)
+export const bot = new Telegraf(process.env.BOT_TOKEN!);

@@ -6,6 +6,6 @@ declare global {
   }
 
   interface Telegram {
-    WebApp: any
+    WebApp: any;
   }
 }

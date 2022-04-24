@@ -88,24 +88,24 @@
   white-space: nowrap !important;
 }
 
-.color-white{
-  color: #fff!important;
+.color-white {
+  color: #fff !important;
 }
 
-.color-black{
-  color: #000!important;
+.color-black {
+  color: #000 !important;
 }
 
-.color-success{
-  color: #52c41a!important;
+.color-success {
+  color: #52c41a !important;
 }
 
-.color-danger{
-  color: #dc3545!important;
+.color-danger {
+  color: #dc3545 !important;
 }
 
-.color-warning{
-  color: #ffc53d!important;
+.color-warning {
+  color: #ffc53d !important;
 }
 
 /* Justify-content */
