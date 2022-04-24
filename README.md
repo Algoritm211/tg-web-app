@@ -10,4 +10,4 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 For more convenient work with the webhook, rename the file `http-client.private.example.env.json` to `http-client.private.env.json` and add appropriate variables
 
-Then, use file webhookOperations.http to run requests from your IDE
+Then, use file `webhookOperations.http` to run requests from your IDE

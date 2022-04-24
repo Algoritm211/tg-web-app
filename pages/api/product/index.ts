@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ProductItem } from '../../../typings';
 import { itemsInfo } from './products.mock';
-import { bot } from '../../../bot/botInstance';
 
 const getAllProducts = (req: NextApiRequest, res: NextApiResponse<ProductItem[]>) => {
   try {
