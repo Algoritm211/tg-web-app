@@ -13,6 +13,7 @@ const Home: React.FC = () => {
   const [currentProduct, setCurrentProduct] = useState<ProductItem | null>(null);
   const [cart, setCart] = useState<Array<ProductItem>>([]);
   const { themeParams } = window.Telegram.WebApp;
+  const { user } = window.Telegram.WebApp.initDataUnsafe;
 
   useEffect(() => {
     const loadItems = async () => {
@@ -38,6 +39,21 @@ const Home: React.FC = () => {
 
   const showDrawer = () => {
     setIsDrawerVisible(true);
+    window.Telegram.WebApp.expand();
+  };
+
+  const makeInvoice = async () => {
+    window.Telegram.WebApp.MainButton.showProgress(true);
+    window.Telegram.WebApp.MainButton.disable(true);
+    const { data } = await axios.post<{ message: string }>('/api/payments/createInvoice', {
+      id: user.id,
+      orderNumber: Math.floor(Math.random() * 9999999),
+      userName: `${user.first_name} ${user.last_name}`,
+      items: cart,
+    });
+    if (data.message === 'OK') {
+      window.Telegram.WebApp.close();
+    }
   };
 
   const closeDrawer = () => {
@@ -79,29 +95,20 @@ const Home: React.FC = () => {
     );
   };
 
-  window.Telegram.WebApp.onEvent('mainButtonClicked', () => {
-    showDrawer();
-  });
-
   if (typeof cart !== 'undefined' && cart.length > 0) {
+    window.Telegram.WebApp.MainButton.show();
     if (!isDrawerVisible) {
       window.Telegram.WebApp.MainButton.setParams({
         text: 'View order',
         color: '#52c41a',
         text_color: '#ffffff',
       });
-      window.Telegram.WebApp.MainButton.show();
     } else {
       const initialValue = 0;
       const sum = cart.reduce((accumulator, currentValue) => {
         return accumulator + currentValue.price;
       }, initialValue);
-      window.Telegram.WebApp.MainButton.setParams({
-        text: `Pay ${sum}₴`,
-        color: '#52c41a',
-        text_color: '#ffffff',
-      });
-      window.Telegram.WebApp.MainButton.show();
+      window.Telegram.WebApp.MainButton.setText(`Pay ${sum}₴`);
     }
   } else {
     window.Telegram.WebApp.MainButton.hide();
@@ -110,6 +117,14 @@ const Home: React.FC = () => {
   const shopItems = productList.map((item) => {
     return <ShopItem showModal={showModal} RemoveProduct={RemoveProduct} key={item.id} cart={cart} product={item} />;
   });
+
+  const callback = isDrawerVisible ? makeInvoice : showDrawer;
+  useEffect(() => {
+    window.Telegram.WebApp.onEvent('mainButtonClicked', callback);
+    return () => {
+      window.Telegram.WebApp.offEvent('mainButtonClicked', callback);
+    };
+  }, [callback]);
 
   return (
     <div
@@ -124,16 +139,11 @@ const Home: React.FC = () => {
       {/* <pre>
         Cart
         {JSON.stringify({ cart }, null, 2)}
-      </pre> */}
-
-      {/* <pre>
-        WebApp
-        {JSON.stringify(window.Telegram.WebApp, null, 2)}
       </pre>
 
       <pre>
-        WebApp
-        {JSON.stringify(callbackData, null, 2)}
+        WebAppUser
+        {JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user, null, 2)}
       </pre> */}
 
       <ShopDrawerModal />

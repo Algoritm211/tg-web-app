@@ -43,8 +43,9 @@ const getInvoice = ({ id, title, userName, prices }: InvoiceProps) => {
 };
 
 const createInvoice = async (req: NextCustomAPIRequest, res: NextApiResponse) => {
+  console.log("Okay, let's go!");
   try {
-    const { id, userName, items } = req.body;
+    const { id, userName, orderNumber, items } = req.body;
     const prices: NewInvoiceParameters['prices'] = items.map((item) => {
       return {
         label: item.title,
@@ -52,11 +53,12 @@ const createInvoice = async (req: NextCustomAPIRequest, res: NextApiResponse) =>
       };
     });
 
-    let textForUser = '<b>Вы заказали</b>\n\n';
+    let textForUser = `<b>Вы заказали</b>\n\n`;
     for (let i = 0; i < items.length; i++) {
-      textForUser += `<i>${items[i].title}</i> - <b>${items[i].price} грн</b>\n`;
+      textForUser += `▪️ <i>${items[i].title}</i> - <b>${items[i].price} грн</b>\n`;
     }
-    textForUser += '\nВсего: <b>200 грн</b>';
+    const sum = items.reduce((previousValue, currentValue) => previousValue + currentValue.price, 0);
+    textForUser += `\nВсего: <b>${sum} грн</b>`;
 
     await bot.telegram.sendMessage(id, textForUser, { parse_mode: 'HTML' });
 
@@ -64,7 +66,7 @@ const createInvoice = async (req: NextCustomAPIRequest, res: NextApiResponse) =>
       id,
       getInvoice({
         id,
-        title: 'Ваш заказ',
+        title: `Ваш заказ #${orderNumber}`,
         prices,
         userName,
       })
