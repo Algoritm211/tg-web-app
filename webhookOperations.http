@@ -1,0 +1,19 @@
+
+### Send post request to remove a webhook (for develop)
+POST https://api.telegram.org/bot{{BOT_TOKEN}}/setWebhook?remove
+Content-Type: application/json
+
+{
+  "url": ""
+}
+
+### Send post request to set a webhook (after deploy)
+POST https://api.telegram.org/bot{{BOT_TOKEN}}/setWebhook
+Content-Type: application/json
+
+{
+  "url": "{{host}}/api/bot/webhook"
+}
+
+###
+
