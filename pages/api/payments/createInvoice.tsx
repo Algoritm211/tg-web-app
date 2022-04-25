@@ -29,7 +29,7 @@ const getInvoice = ({ id, title, userName, prices }: InvoiceProps) => {
     title, // Product name, 1-32 characters
     description: `Заказ для ${userName}`, // Product description, 1-255 characters
     currency: 'UAH', // ISO 4217 Three-Letter Currency Code
-    photo_url: 'https://uploads-ssl.webflow.com/616e38630042220512a9541d/616e3863004222f050a954a1_logo4.png',
+    photo_url: '/clothesLogo.png',
     prices, // Price breakdown, serialized list of components in JSON format 100 kopecks * 100 = 100 uah
     // @ts-ignore mistake in build-in types
     payload: {
