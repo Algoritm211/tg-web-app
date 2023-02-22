@@ -14,7 +14,7 @@
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "telegraf": "^4.7.0"
+    "telegraf": "^4.11.2"
   },
   "devDependencies": {
     "@types/node": "17.0.24",
